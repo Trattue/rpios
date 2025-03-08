@@ -1,0 +1,32 @@
+[tasks.default]
+alias = "build"
+
+[tasks.build]
+command = "mv"
+args = [
+    "./target/aarch64-unknown-none-softfloat/release/kernel8",
+    "./target/aarch64-unknown-none-softfloat/release/kernel8.img",
+]
+dependencies = ["compile"]
+
+[tasks.compile]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.qemu]
+command = "qemu-system-aarch64"
+args = [
+    "-M",
+    "raspi3b",
+    "-d",
+    "in_asm",
+    "-display",
+    "none",
+    "-kernel",
+    "target/aarch64-unknown-none-softfloat/release/kernel8",
+]
+dependencies = ["build"]
+
+[tasks.clean]
+command = "cargo"
+args = ["clean"]
