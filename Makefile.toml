@@ -22,8 +22,10 @@ args = [
     "in_asm",
     "-display",
     "none",
+    "-monitor",
+    "stdio",
     "-kernel",
-    "target/aarch64-unknown-none-softfloat/release/kernel8",
+    "target/aarch64-unknown-none-softfloat/release/kernel8.img",
 ]
 dependencies = ["build"]
 

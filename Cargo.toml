@@ -13,3 +13,4 @@ lto = true
 strip = true
 
 [dependencies]
+aarch64-cpu = "10.0.0"
