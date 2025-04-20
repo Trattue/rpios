@@ -3,14 +3,17 @@ name = "rpios"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+raspberry_pi_3b = []
+
 [[bin]]
 name = "kernel8"
-path = "src/start.rs"
+path = "src/main.rs"
 
 [profile.release]
 panic = "abort"
 lto = true
 strip = true
 
-[dependencies]
+[target.'cfg(target_arch = "aarch64")'.dependencies]
 aarch64-cpu = "10.0.0"

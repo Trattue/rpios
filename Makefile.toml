@@ -11,19 +11,19 @@ dependencies = ["compile"]
 
 [tasks.compile]
 command = "cargo"
-args = ["build", "--release"]
+args = ["build", "--release", "--features", "raspberry_pi_3b"]
 
 [tasks.qemu]
 command = "qemu-system-aarch64"
 args = [
     "-M",
     "raspi3b",
-    "-d",
-    "in_asm",
+    "-serial",
+    "stdio",
     "-display",
     "none",
-    "-monitor",
-    "stdio",
+    # "-s",
+    # "-S",
     "-kernel",
     "target/aarch64-unknown-none-softfloat/release/kernel8.img",
 ]
