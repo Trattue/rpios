@@ -1,11 +1,13 @@
+use crate::mmio_write;
+
 pub struct QemuUart;
+
+const UART: *mut u8 = 0x3F20_1000 as _;
 
 impl core::fmt::Write for QemuUart {
     fn write_str(&mut self, s: &str) -> core::fmt::Result {
         for c in s.chars() {
-            unsafe {
-                core::ptr::write_volatile(0x3F20_1000 as *mut u8, c as u8);
-            }
+            mmio_write!(UART, c as u8);
         }
 
         Ok(())
