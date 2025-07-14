@@ -1,26 +1,73 @@
+//! BCM2835 PL011 UART driver
+//!
+//! # Resources
+//!
+//! <https://datasheets.raspberrypi.com/bcm2835/bcm2835-peripherals.pdf>
+
+use core::fmt::Write;
+
+struct Uart {}
+
+impl Uart {
+    fn write_byte(&self, byte: u8) {}
+}
+
+impl Write for Uart {
+    fn write_str(&mut self, s: &str) -> core::fmt::Result {
+        for c in s.as_bytes() {
+            self.write_byte(*c);
+        }
+        Ok(())
+    }
+}
+
+///////////////
+// UART MMIO //
+///////////////
+
 const UART: *mut UartRegisters = 0x7E20100 as _;
 
 #[repr(C)]
 pub struct UartRegisters {
+    /// Data register
     dr: u32,
+    /// RSRECR Register
     rsrect: [u32; 5],
+    /// Flag register
     fr: [u32; 2],
+    /// not in use
     ilpr: u32,
+    /// Integer Baud rate divisor
     ibrd: u32,
+    /// Fractional Baud rate divisor
     fbrd: u32,
+    /// Line Control register
     lcrh: u32,
+    /// Control register
     cr: u32,
+    /// Interupt FIFO Level Select Register
     ifls: u32,
+    /// Interupt Mask Set Clear Register
     imsc: u32,
+    /// Raw Interupt Status Register
     ris: u32,
+    /// Masked Interupt Status Register
     mis: u32,
+    /// Interupt Clear Register
     icr: u32,
+    /// DMA Control Register
     dmacr: [u32; 14],
+    /// Test Control register
     itcr: u32,
+    /// Integration test input reg
     itip: u32,
+    /// Integration test output reg
     itop: u32,
+    /// Test Data reg
     tdr: u32,
 }
+
+struct DataRegister {}
 
 #[cfg(test)]
 pub mod tests {
