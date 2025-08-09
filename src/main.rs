@@ -6,6 +6,7 @@ use core::arch::asm;
 
 mod boot;
 mod bsp;
+mod hal;
 mod mmio;
 mod print;
 
