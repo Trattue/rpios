@@ -1,17 +1,20 @@
+[config]
+default_to_workspace = false
+
 [tasks.default]
 alias = "build"
 
 [tasks.build]
 command = "mv"
 args = [
-    "./target/aarch64-unknown-none-softfloat/release/kernel8",
-    "./target/aarch64-unknown-none-softfloat/release/kernel8.img",
+    "./target/aarch64-unknown-none/release/kernel",
+    "./target/aarch64-unknown-none/release/kernel8.img",
 ]
 dependencies = ["compile"]
 
 [tasks.compile]
 command = "cargo"
-args = ["build", "--release", "--features", "raspberry_pi_3b"]
+args = ["build", "--release", "-p", "kernel", "--features", "raspi3b"]
 
 [tasks.qemu]
 command = "qemu-system-aarch64"
@@ -25,7 +28,7 @@ args = [
     # "-s",
     # "-S",
     "-kernel",
-    "target/aarch64-unknown-none-softfloat/release/kernel8.img",
+    "target/aarch64-unknown-none/release/kernel8.img",
 ]
 dependencies = ["build"]
 

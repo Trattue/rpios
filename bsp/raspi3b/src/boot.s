@@ -19,7 +19,7 @@ b 2b
 3:
 ldr x0, =__boot_core_stack_end
 mov sp, x0
-b _start_rust
+b main
 
 4:
 // End of assembly

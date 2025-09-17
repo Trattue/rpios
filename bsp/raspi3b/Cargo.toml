@@ -1,0 +1,10 @@
+[package]
+name = "bsp-raspi3b"
+links = "bsp"
+version = "0.1.0"
+edition = "2024"
+
+[build-dependencies]
+cc = "1.2.37"
+
+[dependencies]

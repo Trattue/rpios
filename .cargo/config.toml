@@ -1,4 +1,2 @@
 [build]
-target = "aarch64-unknown-none-softfloat"
-
-rustflags = ["-C", "link-arg=-Traspi3b.ld"]
+target = "aarch64-unknown-none"

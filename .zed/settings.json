@@ -3,8 +3,8 @@
     "rust-analyzer": {
       "initialization_options": {
         "cargo": {
-          "target": "aarch64-unknown-none-softfloat",
-          "features": ["raspberry_pi_3b"]
+          "target": "aarch64-unknown-none",
+          "features": ["bsp-raspi3b"]
         },
         "check": {
           "allTargets": false

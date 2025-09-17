@@ -1,0 +1,16 @@
+[package]
+name = "kernel"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "kernel"
+path = "src/main.rs"
+
+[dependencies]
+bsp-raspi3b = { path = "../bsp/raspi3b", optional = true }
+hal = { path = "../hal" }
+
+[features]
+default = []
+raspi3b = ["bsp-raspi3b"]
