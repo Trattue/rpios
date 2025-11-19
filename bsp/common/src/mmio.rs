@@ -1,36 +1,17 @@
-/// Reads an MMIO register or the field of an MMIO struct.
-///
-/// # Safety
-///
-/// - `$expr` must be a valid memory address to read from.
-/// - If supplied, `$ident` must be a valid field of `$expr` that points to valid memory to read from.
-#[macro_export]
-macro_rules! mmio_read {
-    // Pointer to register
-    ($expr:expr) => {
-        unsafe { expr.read_volatile() }
-    };
-    // Pointer to struct of registers
-    ($expr:expr, $ident:ident) => {{
-        use core::ptr::addr_of;
-        unsafe { (&raw const (*$expr).$ident).read_volatile() }
-    }};
+use core::ptr::read_volatile;
+
+pub struct MmioAccess {
+    pub base_address: *mut (),
 }
 
-/// Writes to an MMIO register or to the field of an MMIO struct.
-///
-/// # Safety
-///
-/// - `$expr` must be a valid memory address to read from.
-/// - If supplied, `$ident` must be a valid field of `$expr` that points to valid memory to read from.
-#[macro_export]
-macro_rules! mmio_write {
-    // Pointer to register
-    ($expr:expr, $data:expr) => {
-        unsafe { $expr.write_volatile($data) };
-    };
-    // Pointer to struct of registers
-    ($expr:expr, $ident:ident, $data:expr) => {
-        unsafe { (&raw mut (*$expr).$ident).write_volatile($data) };
-    };
+impl MmioAccess {
+    pub fn new(base_address: usize) -> Self {
+        let ptr = base_address as *mut ();
+        return MmioAccess { base_address: ptr };
+    }
+
+    pub unsafe fn read_at_offset<T>(self, offset: usize) -> T {
+        let ptr = unsafe { self.base_address.byte_add(offset) } as *mut T;
+        return unsafe { read_volatile(ptr) };
+    }
 }

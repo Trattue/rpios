@@ -5,6 +5,10 @@ version = 4
 [[package]]
 name = "bsp-raspi3b"
 version = "0.1.0"
+dependencies = [
+ "common",
+ "hal",
+]
 
 [[package]]
 name = "common"
